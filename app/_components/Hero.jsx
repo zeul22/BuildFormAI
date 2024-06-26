@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+// import { Button } from '@/components/ui/button'
 import React from 'react'
 
 const Hero = () => {
@@ -21,7 +21,7 @@ const Hero = () => {
       </p>
 
       <div className="mt-8 flex flex-wrap justify-center gap-4">
-        <Button
+        {/* <Button
           className="w-full bg-orange-400 rounded border px-12 py-6 items-center  text-sm sm:w-auto"
         >
           Create Your First!
@@ -31,7 +31,7 @@ const Hero = () => {
           href="#"
         >
           Learn More
-        </Button>
+        </Button> */}
       </div>
     </div>
   </div>
