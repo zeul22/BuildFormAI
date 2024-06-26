@@ -6,8 +6,10 @@ import { ClerkProvider } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Form Builder",
+  title: "BuildFormAI",
   description: "By Rahul Anand",
+  image:"/logo.svg"
+  
 };
 
 export default function RootLayout({ children }) {

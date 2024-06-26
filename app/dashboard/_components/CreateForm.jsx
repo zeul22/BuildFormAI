@@ -38,7 +38,7 @@ const CreateForm = () => {
         .insert(Jsonforms)
         .values({
           jsonform: result.response.text(),
-          createdBy: user?.primaryEmailAddress,
+          createdBy: user?.primaryEmailAddress.emailAddress,
           createdAt: moment().format("DD/MM/YYYY"),
         })
         .returning({ id: Jsonforms.id });
