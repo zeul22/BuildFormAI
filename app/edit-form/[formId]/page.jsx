@@ -5,11 +5,13 @@ import { db } from "../../../configs";
 import { Jsonforms } from "../../../configs/schema";
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LucideChevronUpSquare, Share } from "lucide-react";
 import { useRouter } from "next/navigation";
 import FormUI from "./_components/FormUI";
 import { toast } from "sonner";
 import Controller from "./_components/Controller";
+import { Button } from "../../../components/ui/button";
+import Link from "next/link";
 const EditForm = ({ params }) => {
   const router = useRouter();
   const { user } = useUser();
@@ -39,7 +41,7 @@ const EditForm = ({ params }) => {
       console.log(data);
       console.log(JSON.parse(data));
       setjsonForm(JSON.parse(data));
-      setselectedBackground(result[0].background || "light")
+      setselectedBackground(result[0].background || "light");
     } catch (error) {
       console.log(error);
     }
@@ -85,20 +87,32 @@ const EditForm = ({ params }) => {
 
   const updateControllerFields = async (value, columnName) => {
     // Drizzle has not been updated
-    console.log("Will update the theme and bgtheme");
+    // console.log("Will update the theme and bgtheme");
 
     // const result = await db
     //   .update(Jsonforms)
-    //   .set({
-    //     [columnName]: value,
-    //   })
+    //   .set({ [columnName]: value })
     //   .where(
     //     and(
     //       eq(Jsonforms.id, record.id),
     //       eq(Jsonforms.createdBy, user?.primaryEmailAddress.emailAddress)
-    //     ).returning({ id: Jsonforms.id })
-    //   );
-    //   toast("Updated the relevant theme and styling")
+    //     )
+    //   )
+    //   .returning({ id: Jsonforms.id });
+
+    const result = await db
+      .update(Jsonforms)
+      .set({ [columnName]: value })
+      .where(
+        and(
+          eq(Jsonforms.id, record.id),
+          eq(Jsonforms.createdBy, user?.primaryEmailAddress.emailAddress)
+        )
+      )
+      .returning({id:Jsonforms.id});
+
+    console.log(result);
+    toast("Updated the relevant theme and styling");
   };
 
   return (
@@ -110,6 +124,18 @@ const EditForm = ({ params }) => {
         <ArrowLeft />
         Back
       </h2>
+      <div className="flex gap-3 my-2 justify-end">
+        <Link href={"/aiform/" + record.id} target="_blank">
+          <Button className="bg-orange-400 transition-all duration-300 gap-2">
+            <LucideChevronUpSquare /> Live Preview
+          </Button>
+        </Link>
+        <Link href={"/share/" + record.id} target="_blank">
+          <Button className=" transition-all duration-300 gap-2 bg-green-600">
+            <Share /> Share
+          </Button>
+        </Link>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="p-5 border rounded-lg shadow-md">
           <Controller

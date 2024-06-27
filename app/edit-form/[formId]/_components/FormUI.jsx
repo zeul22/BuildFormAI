@@ -13,14 +13,21 @@ import {
   RadioGroupItem,
 } from "../../../../@/components/ui/radio-group";
 import { Checkbox } from "../../../../@/components/ui/checkbox";
-import FieldEdit from "./FieldEdit"
-const FormUI = ({ jsonForm, onFieldUpdate,deleteField,selectedTheme }) => {
-  console.log('at formUI,', selectedTheme);
-
-
+import FieldEdit from "./FieldEdit";
+const FormUI = ({
+  jsonForm,
+  onFieldUpdate,
+  deleteField,
+  selectedTheme,
+  editable = true,
+}) => {
+  console.log("at formUI,", selectedTheme);
 
   return (
-    <div data-theme={selectedTheme}  className={`rounded-lg border p-5 md:w-[600px] lg:w-[900px]`}>
+    <div
+      data-theme={selectedTheme}
+      className={`rounded-lg border p-5 md:w-[600px] lg:w-[900px]`}
+    >
       <h2 className="font-bold capitalize text-center text-2xl">
         {jsonForm.formTitle}
       </h2>
@@ -28,7 +35,7 @@ const FormUI = ({ jsonForm, onFieldUpdate,deleteField,selectedTheme }) => {
 
       <div className="flex flex-col gap-4">
         {jsonForm.fields?.map((item, index) => (
-          <div key={index} >
+          <div key={index}>
             {item.fieldType === "select" ? (
               <>
                 <label className="text-gray-800 text-sm">
@@ -94,15 +101,21 @@ const FormUI = ({ jsonForm, onFieldUpdate,deleteField,selectedTheme }) => {
               </>
             )}
 
-            <div>
-              <FieldEdit 
-              deleteField={(index)=>deleteField(index)}
-              defaultValue={item} onUpdate={(value)=>onFieldUpdate(value,index)} />
-            </div>
+            {editable && (
+              <div>
+                <FieldEdit
+                  deleteField={(index) => deleteField(index)}
+                  defaultValue={item}
+                  onUpdate={(value) => onFieldUpdate(value, index)}
+                />
+              </div>
+            )}
           </div>
         ))}
       </div>
-      <button className="btn btn-primary">Submit</button>
+      <div className="flex justify-center w-full">
+        <button className="btn btn-primary mt-4 ">Submit</button>
+      </div>
     </div>
   );
 };

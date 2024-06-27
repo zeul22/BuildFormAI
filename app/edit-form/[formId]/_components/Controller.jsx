@@ -19,7 +19,7 @@ const Controller = ({ selectedTheme,selectedBackground }) => {
         <SelectContent className="w-[230px] h-[200px]">
           {/* Add Themes */}
           {Themes.map((theme,index)=>(
-              <SelectItem className="bg-white p-4 capitalize" value={theme.name}>{theme.name}</SelectItem>
+              <SelectItem key={index} className="bg-white p-4 capitalize" value={theme.name}>{theme.name}</SelectItem>
 
           ))}
         </SelectContent>
@@ -38,7 +38,7 @@ const Controller = ({ selectedTheme,selectedBackground }) => {
           </SelectContent>
         </Select>
       </div>
-      {/* <h2 className="mt-8 my-1 font-bold">Text Color</h2>
+      {/* <h2 className="mt-8 my-1 ddfont-bold">Text Color</h2>
       <div>Coming Soon</div> */}
     </div>
   );
