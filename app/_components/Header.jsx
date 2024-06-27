@@ -9,7 +9,7 @@ const Header = () => {
 
   const {user,isSignedIn}=useUser()
   return (
-    <div className='p-3 border-b shadow-sm'>
+    <div className='z-[999] bg-white sticky top-0 p-3 border-b shadow-sm'>
         <div className='flex justify-between'>
             <Link className='cursor-pointer' href={"/"}>
                 <Image src={"/logo.svg"} width={60} height={30} />

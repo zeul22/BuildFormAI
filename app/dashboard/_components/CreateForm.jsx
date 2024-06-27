@@ -30,7 +30,7 @@ const CreateForm = () => {
     console.log(userInput);
     setloading(true);
     const result = await AIChatSession.sendMessage(
-      `Description: ${userInput}. On the basis of the description provided, please give form in json format with formtitle, formheading along with fieldname,fieldtitle, fieldplaceholder,fieldlabel, fieldtype, required field in json format. if the statment says anything else, return empty json.`
+      `Description: ${userInput}. On the basis of the description provided, please give form in json format with formtitle, formheading along with fieldname,fieldtitle, fieldplaceholder,fieldlabel, fieldtype, required field in json format. Only Provide in json format. You don't have to write """json""" `
     );
     console.log(result.response.text());
     if (result.response.text()) {

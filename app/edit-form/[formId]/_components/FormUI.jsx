@@ -13,8 +13,12 @@ import {
   RadioGroupItem,
 } from "../../../../@/components/ui/radio-group";
 import { Checkbox } from "../../../../@/components/ui/checkbox";
+import FieldEdit from "./FieldEdit"
+const FormUI = ({ jsonForm, onFieldUpdate,deleteField }) => {
 
-const FormUI = ({ jsonForm }) => {
+
+
+
   return (
     <div className="rounded-lg border p-5 md:w-[600px] lg:w-[900px]">
       <h2 className="font-bold capitalize text-center text-2xl">
@@ -88,6 +92,12 @@ const FormUI = ({ jsonForm }) => {
                 />
               </>
             )}
+
+            <div>
+              <FieldEdit 
+              deleteField={(index)=>deleteField(index)}
+              defaultValue={item} onUpdate={(value)=>onFieldUpdate(value,index)} />
+            </div>
           </div>
         ))}
       </div>
