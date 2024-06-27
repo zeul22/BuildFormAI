@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "../../../../@/components/ui/input";
 import {
   Select,
@@ -14,17 +14,80 @@ import {
 } from "../../../../@/components/ui/radio-group";
 import { Checkbox } from "../../../../@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { userResponse } from "../../../../configs/schema";
 const FormUI = ({
   jsonForm,
   onFieldUpdate,
   deleteField,
   selectedTheme,
   editable = true,
+  formId=0
 }) => {
-  console.log("at formUI,", selectedTheme);
+  // console.log("at formUI,", selectedTheme);
+  const [formData, setformData] = useState();
+  const router = useRouter();
+  let formRef=useRef();
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setformData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSelectChange = (name, value) => {
+    setformData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const onFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+
+    const result = await db.insert(userResponse).values({
+      jsonresp: formData,
+      createdAt: moment().format("DD/MM/YYYY"),
+      formRef:formId,
+    });
+    if (result) {
+      formRef.reset();
+      toast("Response Submitted Successfully");
+    } else {
+      toast("Error while saving your form!");
+    }
+    router.push("/");
+  };
+
+  const handleCheckBox = (fieldName, itemName, value) => {
+    const list = formData?.[fieldName] ? formData?.[fieldName] : [];
+
+    if (value) {
+      list.push({
+        label: itemName,
+        value: value,
+      });
+
+      setformData({
+        ...formData,
+        [fieldName]: list,
+      });
+    } else {
+      const result = list.filter((item) => item.label == itemName);
+      setformData({
+        ...formData,
+        [fieldName]: result,
+      });
+    }
+  };
 
   return (
-    <div
+    <form
+      ref={(e)=>formRef=e}
+      onSubmit={onFormSubmit}
       data-theme={selectedTheme}
       className={`rounded-lg border p-5 md:w-[600px] lg:w-[900px]`}
     >
@@ -41,7 +104,10 @@ const FormUI = ({
                 <label className="text-gray-800 text-sm">
                   {item.fieldLabel}
                 </label>
-                <Select>
+                <Select
+                  required={item.required}
+                  onValueChange={(v) => handleSelectChange(item.fieldName, v)}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder={item.fieldPlaceholder} />
                   </SelectTrigger>
@@ -60,10 +126,16 @@ const FormUI = ({
               </>
             ) : item.fieldType === "radio" ? (
               <>
-                <RadioGroup>
+                <RadioGroup required={item.required}>
                   {item.options.map((option, index1) => (
                     <div className="flex items-center space-x-2" key={index1}>
-                      <RadioGroupItem value={option.value} id={option.label} />
+                      <RadioGroupItem
+                        onClick={() =>
+                          handleSelectChange(option.label, option.value)
+                        }
+                        value={option.value}
+                        id={option.label}
+                      />
                       <Label htmlFor="option-one">{option.label}</Label>
                     </div>
                   ))}
@@ -75,13 +147,24 @@ const FormUI = ({
                 {item?.option ? (
                   item.options.map((option, index1) => (
                     <div key={index1} className="flex gap-2">
-                      <Checkbox value={option.label} />
+                      <Checkbox
+                        onCheckChange={(v) =>
+                          handleCheckBox(item.label, option.label, v)
+                        }
+                        required={item.required}
+                        value={option.label}
+                      />
                       <h2>{option.label}</h2>
                     </div>
                   ))
                 ) : (
                   <div className="flex gap-2">
-                    <Checkbox />
+                    <Checkbox
+                      onCheckChange={(v) =>
+                        handleCheckBox(item.label, option.label, v)
+                      }
+                      required={item.required}
+                    />
                     <h2>{item.label}</h2>
                   </div>
                 )}
@@ -97,6 +180,7 @@ const FormUI = ({
                   placeholder={item.fieldPlaceholder}
                   name={item.fieldName}
                   required={item.required}
+                  onChange={(e) => handleInputChange(e)}
                 />
               </>
             )}
@@ -114,9 +198,11 @@ const FormUI = ({
         ))}
       </div>
       <div className="flex justify-center w-full">
-        <button className="btn btn-primary mt-4 ">Submit</button>
+        <button type="submit" className="btn btn-primary mt-4 ">
+          Submit
+        </button>
       </div>
-    </div>
+    </form>
   );
 };
 
