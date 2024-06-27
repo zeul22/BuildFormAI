@@ -14,13 +14,13 @@ import {
 } from "../../../../@/components/ui/radio-group";
 import { Checkbox } from "../../../../@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit"
-const FormUI = ({ jsonForm, onFieldUpdate,deleteField }) => {
-
+const FormUI = ({ jsonForm, onFieldUpdate,deleteField,selectedTheme }) => {
+  console.log('at formUI,', selectedTheme);
 
 
 
   return (
-    <div className="rounded-lg border p-5 md:w-[600px] lg:w-[900px]">
+    <div data-theme={selectedTheme}  className={`rounded-lg border p-5 md:w-[600px] lg:w-[900px]`}>
       <h2 className="font-bold capitalize text-center text-2xl">
         {jsonForm.formTitle}
       </h2>
@@ -28,7 +28,7 @@ const FormUI = ({ jsonForm, onFieldUpdate,deleteField }) => {
 
       <div className="flex flex-col gap-4">
         {jsonForm.fields?.map((item, index) => (
-          <div key={index}>
+          <div key={index} >
             {item.fieldType === "select" ? (
               <>
                 <label className="text-gray-800 text-sm">
@@ -85,6 +85,7 @@ const FormUI = ({ jsonForm, onFieldUpdate,deleteField }) => {
                   {item.fieldLabel}
                 </label>
                 <Input
+                  className="bg-transparent"
                   type={item?.fieldType}
                   placeholder={item.fieldPlaceholder}
                   name={item.fieldName}
@@ -101,6 +102,7 @@ const FormUI = ({ jsonForm, onFieldUpdate,deleteField }) => {
           </div>
         ))}
       </div>
+      <button className="btn btn-primary">Submit</button>
     </div>
   );
 };

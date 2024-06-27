@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="emerald">
       <body className={inter.className}>
         <Header /> 
-        <Toaster /> 
+        <Toaster className="uppercase my-2 bg-orange-400"/> 
         {children}
       </body>
     </html>

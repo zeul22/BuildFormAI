@@ -9,13 +9,16 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import FormUI from "./_components/FormUI";
 import { toast } from "sonner";
-
+import Controller from "./_components/Controller";
 const EditForm = ({ params }) => {
   const router = useRouter();
   const { user } = useUser();
   const [jsonForm, setjsonForm] = useState([]);
   const [updateTrigger, setupdateTrigger] = useState();
   const [record, setrecord] = useState([]);
+  const [selectedTheme, setselectedTheme] = useState("light");
+  const [selectedBackground, setselectedBackground] = useState("light");
+  console.log("At page tsx :", selectedTheme);
   useEffect(() => {
     user && getFormData();
   }, [user]);
@@ -36,6 +39,7 @@ const EditForm = ({ params }) => {
       console.log(data);
       console.log(JSON.parse(data));
       setjsonForm(JSON.parse(data));
+      setselectedBackground(result[0].background || "light")
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +56,7 @@ const EditForm = ({ params }) => {
     setupdateTrigger(Date.now());
   };
 
-  const updateJsonFormInDB = async() => {
+  const updateJsonFormInDB = async () => {
     const result = await db
       .update(Jsonforms)
       .set({
@@ -64,20 +68,38 @@ const EditForm = ({ params }) => {
           eq(Jsonforms.createdBy, user?.primaryEmailAddress?.emailAddress)
         )
       );
-    toast('Field name and placeholder has been updated.')
+    toast("The relative field name has been updated.");
 
     console.log(result);
   };
 
-  const deleteField=(indexToRemove)=>{
-    const result =jsonForm.fields.filter((item,index)=>index!==indexToRemove)
-    
-    toast('The relative field has been deleted successfully.')
-    console.log(result);
-    jsonForm.fields=result;
-    setupdateTrigger(Date.now());
+  const deleteField = (indexToRemove) => {
+    const result = jsonForm.fields.filter(
+      (item, index) => index !== indexToRemove
+    );
 
-  }
+    console.log(result);
+    jsonForm.fields = result;
+    setupdateTrigger(Date.now());
+  };
+
+  const updateControllerFields = async (value, columnName) => {
+    // Drizzle has not been updated
+    console.log("Will update the theme and bgtheme");
+
+    // const result = await db
+    //   .update(Jsonforms)
+    //   .set({
+    //     [columnName]: value,
+    //   })
+    //   .where(
+    //     and(
+    //       eq(Jsonforms.id, record.id),
+    //       eq(Jsonforms.createdBy, user?.primaryEmailAddress.emailAddress)
+    //     ).returning({ id: Jsonforms.id })
+    //   );
+    //   toast("Updated the relevant theme and styling")
+  };
 
   return (
     <div className="p-10">
@@ -89,11 +111,28 @@ const EditForm = ({ params }) => {
         Back
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="p-5 border rounded-lg shadow-md">Controller</div>
-        <div className="md:col-span-2 border rounded-lg p-5 flex items-center justify-center">
-          <FormUI 
-          deleteField={(index)=>deleteField(index)}
-          jsonForm={jsonForm} onFieldUpdate={onFieldUpdate} />
+        <div className="p-5 border rounded-lg shadow-md">
+          <Controller
+            selectedBackground={(value) => {
+              updateControllerFields(value, "background");
+              setselectedBackground(value);
+            }}
+            selectedTheme={(value) => {
+              updateControllerFields(value, "theme");
+              setselectedTheme(value);
+            }}
+          />
+        </div>
+        <div
+          style={{ backgroundImage: selectedBackground }}
+          className="md:col-span-2 border rounded-lg p-5 flex items-center justify-center"
+        >
+          <FormUI
+            deleteField={(index) => deleteField(index)}
+            jsonForm={jsonForm}
+            onFieldUpdate={onFieldUpdate}
+            selectedTheme={selectedTheme}
+          />
         </div>
       </div>
     </div>
