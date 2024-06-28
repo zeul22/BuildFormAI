@@ -4,6 +4,7 @@ import { Button } from '../../../components/ui/button'
 import { AreaChart, LibraryBig, MessageSquareQuote, ShieldPlus } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React, { useEffect } from 'react'
+import Link from 'next/link'
 
 const SideNav = () => {
     const menuList=[
@@ -17,19 +18,19 @@ const SideNav = () => {
             id:1,
             name:"Responses",
             icon:MessageSquareQuote,
-            path:'/responses'
+            path:'/dashboard/responses'
         },
         {
             id:1,
             name:"Analytics",
             icon:AreaChart,
-            path:'/analytics'
+            path:'/dashboard/analytics'
         },
         {
             id:1,
             name:"Upgrade",
             icon:ShieldPlus,
-            path:'/upgrade'
+            path:'/dashboard/upgrade'
         },
     ]
 
@@ -41,14 +42,17 @@ const SideNav = () => {
     <div className='h-screen shadow-md border'>
         <div className='flex flex-col gap-4 p-4 text-gray-500'>
             {menuList.map((item,index)=>(
+                <Link href={item.path} key={index} >
+
                 <h2 className={`flex gap-2 cursor-pointer p-3 mb-3 
                 hover:bg-orange-400 hover:text-white rounded-md transition-all duration-300
                 ${path=== item.path && 'bg-primary text-white'}
                 `}
-                 key={index}>
+                >
                     <item.icon />
                     {item.name}
                 </h2>
+                </Link>
             ))}
         </div>
         <div className='fixed bottom-24 p-2 flex flex-col  justify-center items-center w-64'>
