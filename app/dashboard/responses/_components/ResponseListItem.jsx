@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../../../components/ui/button";
 import { db } from "../../../../configs";
 import { userResponse } from "../../../../configs/schema";
@@ -8,8 +8,11 @@ import * as XLSX from "xlsx";
 import { toast } from "sonner";
 
 const ResponseListItem = ({ item }) => {
+  // console.log(item);
   const data = JSON.parse(item.jsonform);
+  // console.log("Here is the data: ",data);
   const [loading, setloading] = useState(false);
+  const[count,setCount]=useState(0);
   const ExportData = async () => {
     setloading(true);
     const result = await db
@@ -19,13 +22,13 @@ const ResponseListItem = ({ item }) => {
 
     if (result) {
       let jsonData = [];
-      console.log(result);
+      // console.log(result);
       if (result.length > 0) {
         result.forEach((item) => {
           const jsonItem = JSON.parse(item.jsonResp);
           jsonData.push(jsonItem);
         });
-        exporttoExcel(jsonData);
+        exporttoExcel(jsonData,data.formTitle);
         toast("Exported Successfully!")
       }
       else{
@@ -34,11 +37,21 @@ const ResponseListItem = ({ item }) => {
       setloading(false);
     }
   };
-  const exporttoExcel = (jsonData) => {
+  const getTotalResponses=async()=>{
+    const result = await db
+    .select()
+    .from(userResponse)
+    console.log(result.length)
+    setCount(result.length);
+  }
+  useEffect(()=>{
+   getTotalResponses()
+  },[])
+  const exporttoExcel = (jsonData,file_name) => {
     const worksheet = XLSX.utils.json_to_sheet(jsonData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    XLSX.writeFile(workbook, `${jsonform.formTitle}.xlsx`);
+    XLSX.writeFile(workbook, `${file_name}.xlsx`);
   };
   return (
     <div className="ounded-lg shadow-md border  p-5  rounded-lg capitalize flex flex-col ">
@@ -46,7 +59,7 @@ const ResponseListItem = ({ item }) => {
       <hr />
       <div className="flex justify-between align-middle items-center mt-6">
         <h2 className="font-light text-sm">
-          <strong>{45}</strong> Responses
+          <strong>{count}</strong> Responses
         </h2>
         <Button
           disabled={loading}

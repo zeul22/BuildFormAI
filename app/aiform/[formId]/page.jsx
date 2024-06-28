@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import FormUI from "../../edit-form/[formId]/_components/FormUI";
 import Image from "next/image";
 import Link from "next/link";
+import Footer from "../../_components/Footer";
 
 const LiveBuildFormsAI = ({ params }) => {
   const [record, setrecord] = useState();
@@ -24,6 +25,7 @@ const LiveBuildFormsAI = ({ params }) => {
     console.log(result);
   };
   return (
+    <>
     <div className="p-10 flex flex-col items-center"
     style={{backgroundImage:record?.background}}
     >
@@ -35,14 +37,15 @@ const LiveBuildFormsAI = ({ params }) => {
         editable={false}
         formId={record?.id}
         enabledSignIn={record?.enabledSignIn}
-      />}
+        />}
 
       <Link href={process.env.NEXT_PUBLIC_BASE_URL} className="bg-white p-3 rounded-lg flex gap-2 fixed bottom-2 left-2">
         <Image src={"/logo.svg"} width={30} height={30} />
-         BuildFormsAI
+         BuildFormAI
       </Link>
     </div>
-
+    <Footer className="fixed bottom-2" />
+      </>
   );
 };
 

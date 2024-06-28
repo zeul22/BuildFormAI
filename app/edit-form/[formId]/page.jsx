@@ -13,6 +13,7 @@ import Controller from "./_components/Controller";
 import { Button } from "../../../components/ui/button";
 import Link from "next/link";
 import { RWebShare } from "react-web-share";
+import Footer from "../../_components/Footer";
 const EditForm = ({ params }) => {
   const router = useRouter();
   const { user } = useUser();
@@ -117,11 +118,12 @@ const EditForm = ({ params }) => {
   };
 
   return (
+    <>
     <div className="p-10">
       <h2
         onClick={() => router.back()}
         className="flex gap-2 items-center my-5 cursor-pointer hover:font-bold transition-all"
-      >
+        >
         <ArrowLeft />
         Back
       </h2>
@@ -136,9 +138,9 @@ const EditForm = ({ params }) => {
             text: jsonForm.formHeading+", BuildFormAI",
             url: process.env.NEXT_PUBLIC_BASE_URL+"/aiform/"+record?.id,
             title: jsonForm.formTitle,
-          }}
-          onClick={() => console.log("shared successfully!")}
-        >
+            }}
+            onClick={() => console.log("shared successfully!")}
+            >
            <Button className=" transition-all duration-300 gap-2 bg-green-600">
             <Share /> Share
           </Button>
@@ -151,30 +153,32 @@ const EditForm = ({ params }) => {
             selectedBackground={(value) => {
               updateControllerFields(value, "background");
               setselectedBackground(value);
-            }}
-            selectedTheme={(value) => {
-              updateControllerFields(value, "theme");
+              }}
+              selectedTheme={(value) => {
+                updateControllerFields(value, "theme");
               setselectedTheme(value);
-            }}
-            setsigninEnabled={(value)=>{
-              updateControllerFields(value, "enabledSignIn");
-
-            }}
-          />
+              }}
+              setsigninEnabled={(value)=>{
+                updateControllerFields(value, "enabledSignIn");
+                
+                }}
+                />
         </div>
         <div
           style={{ backgroundImage: selectedBackground }}
           className="md:col-span-2 border rounded-lg p-5 flex items-center justify-center"
-        >
+          >
           <FormUI
             deleteField={(index) => deleteField(index)}
             jsonForm={jsonForm}
             onFieldUpdate={onFieldUpdate}
             selectedTheme={selectedTheme}
-          />
+            />
         </div>
       </div>
     </div>
+      <Footer className="fixed bottom-2" />
+          </>
   );
 };
 
