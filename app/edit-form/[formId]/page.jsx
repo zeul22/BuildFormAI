@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import Controller from "./_components/Controller";
 import { Button } from "../../../components/ui/button";
 import Link from "next/link";
+import { RWebShare } from "react-web-share";
 const EditForm = ({ params }) => {
   const router = useRouter();
   const { user } = useUser();
@@ -130,11 +131,19 @@ const EditForm = ({ params }) => {
             <LucideChevronUpSquare /> Live Preview
           </Button>
         </Link>
-        <Link href={"/share/" + record.id} target="_blank">
-          <Button className=" transition-all duration-300 gap-2 bg-green-600">
+        <RWebShare
+          data={{
+            text: jsonForm.formHeading+", BuildFormAI",
+            url: process.env.NEXT_PUBLIC_BASE_URL+"/aiform/"+record?.id,
+            title: jsonForm.formTitle,
+          }}
+          onClick={() => console.log("shared successfully!")}
+        >
+           <Button className=" transition-all duration-300 gap-2 bg-green-600">
             <Share /> Share
           </Button>
-        </Link>
+        </RWebShare>
+         
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="p-5 border rounded-lg shadow-md">

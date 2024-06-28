@@ -1,6 +1,7 @@
 import { Button } from '../../components/ui/button'
 import React from 'react'
 import CreateForm from './_components/CreateForm'
+import ListForm from './_components/ListForm'
 
 const Dashboard = () => {
   return (
@@ -9,6 +10,7 @@ const Dashboard = () => {
             Dashboard
            <CreateForm />
         </h2>
+        <ListForm />
     </div>
   )
 }

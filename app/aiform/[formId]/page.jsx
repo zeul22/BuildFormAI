@@ -33,7 +33,7 @@ const LiveBuildFormsAI = ({ params }) => {
         deleteField={() => console.log()}
         selectedTheme={record?.theme}
         editable={false}
-        formId={record.id}
+        formId={record?.id}
       />
 
       <Link href={process.env.NEXT_PUBLIC_BASE_URL} className="bg-white p-3 rounded-lg flex gap-2 fixed bottom-2 left-2">

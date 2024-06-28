@@ -4,7 +4,7 @@ export const Jsonforms = pgTable('jsonforms', {
   id: serial('id').primaryKey(),
   jsonform:text('jsonform').notNull(),
   // Update the schema
-  them:varchar('theme'),
+  theme:varchar('theme'),
   background:varchar('background'),
   createdBy: varchar('createdBy').notNull(),
   createdAt: varchar('createdAt').notNull(),
