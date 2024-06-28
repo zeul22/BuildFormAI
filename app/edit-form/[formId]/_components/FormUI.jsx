@@ -17,18 +17,24 @@ import FieldEdit from "./FieldEdit";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userResponse } from "../../../../configs/schema";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import { Button } from "../../../../components/ui/button";
+import { db } from "../../../../configs";
+import moment from "moment";
 const FormUI = ({
   jsonForm,
   onFieldUpdate,
   deleteField,
   selectedTheme,
   editable = true,
-  formId=0
+  formId = 0,
+  enabledSignIn = false,
 }) => {
   // console.log("at formUI,", selectedTheme);
   const [formData, setformData] = useState();
+  const { user, isSignedIn } = useUser();
   const router = useRouter();
-  let formRef=useRef();
+  let formRef = useRef();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setformData({
@@ -51,7 +57,7 @@ const FormUI = ({
     const result = await db.insert(userResponse).values({
       jsonresp: formData,
       createdAt: moment().format("DD/MM/YYYY"),
-      formRef:formId,
+      formRef: formId,
     });
     if (result) {
       formRef.reset();
@@ -86,7 +92,7 @@ const FormUI = ({
 
   return (
     <form
-      ref={(e)=>formRef=e}
+      ref={(e) => (formRef = e)}
       onSubmit={onFormSubmit}
       data-theme={selectedTheme}
       className={`rounded-lg border p-5 md:w-[600px] lg:w-[900px]`}
@@ -198,9 +204,19 @@ const FormUI = ({
         ))}
       </div>
       <div className="flex justify-center w-full">
-        <button type="submit" className="btn btn-primary mt-4 ">
-          Submit
-        </button>
+        {!enabledSignIn ? (
+          <button type="submit" className="btn btn-primary mt-4 ">
+            Submit
+          </button>
+        ) : isSignedIn ? (
+          <button type="submit" className="btn btn-primary mt-4 ">
+            Submit
+          </button>
+        ) : (
+          <Button className="hover:bg-orange-400 transition-all duration-300 mt-4 ">
+            <SignInButton mode="modal">To Submit, SignIn first</SignInButton>
+          </Button>
+        )}
       </div>
     </form>
   );

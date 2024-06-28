@@ -8,7 +8,8 @@ import { desc, eq } from "drizzle-orm";
 import FormItem from "./FormItem"
 const ListForm = () => {
   const { user } = useUser();
-  const [formList, setformList] = useState([]);
+  const [formList, setformList] = useState();
+  
 
   useEffect(() => {
     user && getFormList();
@@ -20,13 +21,14 @@ const ListForm = () => {
       .where(eq(Jsonforms.createdBy, user?.primaryEmailAddress.emailAddress))
       .orderBy(desc(Jsonforms.id));
     setformList(result);
+   
 
     console.log(result);
   };
   return <div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
         {
-            formList.map((item,index)=>(
+           formList && formList.map((item,index)=>(
                 <div key={index}>
                     <FormItem item={item} refreshData={getFormList}/>
                 </div>

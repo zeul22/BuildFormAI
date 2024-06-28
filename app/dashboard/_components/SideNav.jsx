@@ -3,10 +3,18 @@ import { Progress } from '../../../components/ui/progress'
 import { Button } from '../../../components/ui/button'
 import { AreaChart, LibraryBig, MessageSquareQuote, ShieldPlus } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { Jsonforms } from '../../../configs/schema'
+import { db } from '../../../configs'
+import { desc, eq } from 'drizzle-orm'
+import { useUser } from '@clerk/nextjs'
 
 const SideNav = () => {
+
+    const {user}=useUser();
+    const [formList, setformList] = useState()
+    const [perfileCreated, setperfileCreated] = useState(0)
     const menuList=[
         {
             id:1,
@@ -37,7 +45,21 @@ const SideNav = () => {
     const path=usePathname();
     useEffect(()=>{
         console.log(path);
-    },[path])
+        user && getFormList()
+    },[user])
+
+    const getFormList = async () => {
+        const result = await db
+          .select()
+          .from(Jsonforms)
+          .where(eq(Jsonforms.createdBy, user?.primaryEmailAddress.emailAddress))
+          .orderBy(desc(Jsonforms.id));
+        setformList(result);
+        const v=Number((result.length)/3*100)
+        setperfileCreated(v);
+        console.log(result);
+      };
+
   return (
     <div className='h-screen shadow-md border'>
         <div className='flex flex-col gap-4 p-4 text-gray-500'>
@@ -58,8 +80,9 @@ const SideNav = () => {
         <div className='fixed bottom-24 p-2 flex flex-col  justify-center items-center w-64'>
             <Button className="w-full bg-orange-400">+ Create Form</Button>
             <div className='my-5 w-full items-center justify-center' >
-            <Progress className="bg-gray-100" value={33} />
-            <h2 className='text-sm text-gray-500 my-2 text-center'><strong className='mx-1'>2</strong>out of<strong className='mx-1'>3</strong> File Created</h2>
+            <Progress className="bg-gray-100" value={perfileCreated > 100 ? 100 :perfileCreated} />
+            <h2 className='text-sm text-gray-500 my-2 text-center'><strong className='mx-1'>{formList?.length}</strong>out of<strong className='mx-1'>3</strong> File Created</h2>
+            <h2 className='text-center text-sm text-gray-500 font-bold'>{formList?.length>=3 ? "Limit exceeded, Buy Plans" :""} </h2>
             <h2 className='text-sm text-center text-gray-500 p-2 items-center '>Upgrade your plan for building unlimited AI forms</h2>
             
             </div>

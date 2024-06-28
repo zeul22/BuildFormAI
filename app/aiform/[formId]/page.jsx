@@ -27,14 +27,15 @@ const LiveBuildFormsAI = ({ params }) => {
     <div className="p-10 flex flex-col items-center"
     style={{backgroundImage:record?.background}}
     >
-      <FormUI
+      {record && <FormUI
         jsonForm={JsonForm}
         onFieldUpdate={() => console.log()}
         deleteField={() => console.log()}
         selectedTheme={record?.theme}
         editable={false}
         formId={record?.id}
-      />
+        enabledSignIn={record?.enabledSignIn}
+      />}
 
       <Link href={process.env.NEXT_PUBLIC_BASE_URL} className="bg-white p-3 rounded-lg flex gap-2 fixed bottom-2 left-2">
         <Image src={"/logo.svg"} width={30} height={30} />
