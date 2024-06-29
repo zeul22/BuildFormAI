@@ -1,37 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BuildFormAI
 
-## Getting Started
+BuildFormAI is a powerful SASS product that allows users to create specific forms in seconds using generative AI. Whether you need a contact form, survey, registration form, or any other type of form, BuildFormAI simplifies the process with the latest AI technology.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Generative AI Form Creation**: Instantly generate tailored forms with the help of advanced AI.
+- **User-Friendly Interface**: Easy-to-use interface for quick form creation and customization.
+- **Real-time Form Preview**: See changes to your forms in real-time as you build them.
+- **Export Options**: Export your forms in various formats.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Frontend & Backend**: [Next.js](https://nextjs.org/)
+- **ORM**: [DrizzleORM](https://drizzle-orm.dev/)
+- **Database**: [NeonDB](https://neon.tech/)
+- **AI**: [Google Gemini](https://ai.google/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Deployed Project
 
-## Learn More
+Check out the deployed project here: [BuildFormAI](https://buildformsai.vercel.app/)
 
-To learn more about Next.js, take a look at the following resources:
+## Libraries Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **[lucide](https://lucide.dev/)**: Icon library for consistent and visually appealing icons.
+- **[xlsx](https://github.com/SheetJS/sheetjs)**: Library for reading, manipulating, and writing spreadsheet data.
+- **[moment](https://momentjs.com/)**: Parse, validate, manipulate, and display dates and times.
+- **[shadcn](https://shadcn.dev/)**: Comprehensive UI components for building modern web apps.
+- **[tailwindcss](https://tailwindcss.com/)**: Utility-first CSS framework for rapid UI development.
+- **[daisyUI](https://daisyui.com/)**: Tailwind CSS components for building beautiful interfaces.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Installation
 
-## Deploy on Vercel
+To run BuildFormAI locally, follow these steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/zeul22/buildformai.git
+    cd buildformai
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# SASS_Form_Builder
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
+
+3. **Set up environment variables**:
+    Create a `.env.local` file in the root directory and add the necessary environment variables:
+    ```env
+
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL=
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL=
+
+    NEXT_PUBLIC_DB_URL=
+    NEXT_PUBLIC_GEMINI_API_KEY=
+
+    NEXT_PUBLIC_BASE_URL=
+    
+    ```
+
+4. **Run the development server**:
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Usage
+
+1. **Create a new form**: Use the intuitive UI to generate forms quickly.
+2. **Customize the form**: Adjust fields, styles, and settings as needed.
+3. **Preview in real-time**: See a live preview of your form as you build.
+4. **Export the form**: Export your form in your desired format.
+
+## Contributing
+
+We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) to learn how you can help.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+For any questions or inquiries, please reach out to [ananrahul033@gmail.com](mailto:ananrahul033@gmail.com).

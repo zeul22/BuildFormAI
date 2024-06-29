@@ -7,7 +7,7 @@ import {
   MessageSquareQuote,
   ShieldPlus,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Jsonforms } from "../../../configs/schema";
@@ -19,6 +19,8 @@ const SideNav = () => {
   const { user } = useUser();
   const [formList, setformList] = useState();
   const [perfileCreated, setperfileCreated] = useState(0);
+  const router=useRouter();
+
   const menuList = [
     {
       id: 1,
@@ -59,6 +61,7 @@ const SideNav = () => {
       .where(eq(Jsonforms.createdBy, user?.primaryEmailAddress.emailAddress))
       .orderBy(desc(Jsonforms.id));
     setformList(result);
+    const count = result.length;
     const v = Number((result.length / 3) * 100);
     setperfileCreated(v);
     console.log(result);
@@ -66,9 +69,7 @@ const SideNav = () => {
 
   return (
     <div className="h-screen shadow-md border">
-      <div className="w-full flex justify-end p-3">
-        
-      </div>
+      <div className="w-full flex justify-end p-3"></div>
       <div className="flex flex-col gap-4 p-4 text-gray-500">
         {menuList.map((item, index) => (
           <Link href={item.path} key={index}>
@@ -85,7 +86,11 @@ const SideNav = () => {
         ))}
       </div>
       <div className="fixed bottom-24 p-2 flex flex-col  justify-center items-center w-64">
-        <Button className="w-full bg-orange-400">+ Create Form</Button>
+        {formList && formList.length >= 3 ? (
+          <Button onClick={()=>router.push("/dashboard/upgrade")} className="w-full bg-orange-400">Upgrade</Button>
+        ) : (
+          <></>
+        )}
         <div className="my-5 w-full items-center justify-center">
           <Progress
             className="bg-gray-100"

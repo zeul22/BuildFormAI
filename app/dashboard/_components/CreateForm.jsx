@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,7 @@ import { db } from "../../../configs";
 import moment from "moment/moment";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { eq } from "drizzle-orm";
 
 const CreateForm = () => {
   const router = useRouter();
@@ -25,6 +26,22 @@ const CreateForm = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [loading, setloading] = useState();
+
+  const [isFree, setisFree] = useState(true);
+
+  useEffect(() => {
+    user && getFormList();
+  },[]);
+  const getFormList = async () => {
+    const result = await db
+      .select()
+      .from(Jsonforms)
+      .where(eq(Jsonforms.createdBy, user?.primaryEmailAddress.emailAddress))
+         
+    const count=result.length;
+    setisFree(count>=3? false:true)
+    console.log(result);
+  };
 
   const onCreateForm = async () => {
     console.log(userInput);
@@ -52,12 +69,21 @@ const CreateForm = () => {
   };
   return (
     <div>
-      <Button
-        onClick={() => setOpenDialog(true)}
-        className="hover:bg-orange-400"
-      >
-        + Create Form
-      </Button>
+      {isFree ? (
+        <Button
+          onClick={() => setOpenDialog(true)}
+          className="hover:bg-orange-400"
+        >
+          + Create Form
+        </Button>
+      ) : (
+        <Button
+          onClick={() => router.push("/dashboard/upgrade")}
+          className="hover:bg-orange-400"
+        >
+          Upgrade
+        </Button>
+      )}
       <Dialog open={openDialog}>
         <DialogContent>
           <DialogHeader>

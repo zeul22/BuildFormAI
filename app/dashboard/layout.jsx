@@ -5,7 +5,7 @@ import SideNav from "./_components/SideNav";
 import { Button } from "../../components/ui/button";
 
 const DashboardLayout = ({ children }) => {
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setisOpen] = useState(true);
 
   return (
     <>
