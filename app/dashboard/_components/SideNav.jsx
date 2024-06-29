@@ -19,7 +19,6 @@ const SideNav = () => {
   const { user } = useUser();
   const [formList, setformList] = useState();
   const [perfileCreated, setperfileCreated] = useState(0);
-  const [isOpen, setisOpen] = useState(false);
   const menuList = [
     {
       id: 1,
@@ -68,13 +67,7 @@ const SideNav = () => {
   return (
     <div className="h-screen shadow-md border">
       <div className="w-full flex justify-end p-3">
-        <Button
-          onClick={() => setisOpen(!isOpen)}
-          variant="outline"
-          className="text-center flex"
-        >
-          {isOpen ? "Open" : "Close"}
-        </Button>
+        
       </div>
       <div className="flex flex-col gap-4 p-4 text-gray-500">
         {menuList.map((item, index) => (
