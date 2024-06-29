@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "../../../@/components/ui/alert-dialog";
 import { db } from "../../../configs";
-import { Jsonforms } from "../../../configs/schema";
+import { Jsonforms, userResponse } from "../../../configs/schema";
 import { and, eq } from "drizzle-orm";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
@@ -27,6 +27,8 @@ const FormItem = ({ item, refreshData }) => {
   const router = useRouter();
 
   const ondeleteForm = async () => {
+    const res=await db.delete(userResponse).where(eq(userResponse.formRef,item.id))
+
     const result = await db
       .delete(Jsonforms)
       .where(
