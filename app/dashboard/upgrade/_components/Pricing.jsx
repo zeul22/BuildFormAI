@@ -9,7 +9,7 @@ const Pricing = () => {
         {
             "id":"1",
             "name":"Personal",
-            "cost":"4",
+            "cost":"10",
             "features":[
                 "3 free credits",
                 "Limited Live Preview",
@@ -19,7 +19,7 @@ const Pricing = () => {
         {
             "id":"2",
             "name":"Professional",
-            "cost":"7",
+            "cost":"18",
             "features":[
                 "3 free credits",
                 "Limited Live Preview",
@@ -29,7 +29,7 @@ const Pricing = () => {
         {
             "id":"3",
             "name":"Professional",
-            "cost":"15",
+            "cost":"60",
             "features":[
                 "3 free credits",
                 "Limited Live Preview",
@@ -42,7 +42,7 @@ const Pricing = () => {
         {
             "id":"1",
             "name":"Personal",
-            "cost":"48",
+            "cost":"115",
             "features":[
                 "3 free credits",
                 "Limited Live Preview",
@@ -52,7 +52,7 @@ const Pricing = () => {
         {
             "id":"2",
             "name":"Professional",
-            "cost":"84",
+            "cost":"210",
             "features":[
                 "3 free credits",
                 "Limited Live Preview",
@@ -62,7 +62,7 @@ const Pricing = () => {
         {
             "id":"3",
             "name":"Professional",
-            "cost":"180",
+            "cost":"640",
             "features":[
                 "3 free credits",
                 "Limited Live Preview",

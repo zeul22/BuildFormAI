@@ -86,27 +86,28 @@ const Hero = () => {
                   <span className="sr-only">Plan</span>
                 </h2>
 
-                <p className="mt-2 text-gray-700">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <p className="mt-2 text-gray-700 text-sm  h-[100px]">
+                  This plan includes access to basic features, allowing you to
+                  create and customize forms quickly and efficiently.
                 </p>
 
                 <p className="mt-2 sm:mt-4">
                   <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
                     {" "}
-                    20${" "}
+                    10${" "}
                   </strong>
 
                   <span className="text-sm font-medium text-gray-700">
                     /month
                   </span>
                 </p>
-                  <a
-                    className="mt-4 block rounded border  bg-primary transition-all duration-300 hover:bg-orange-400 px-12 py-3 text-center text-sm font-medium text-white  focus:outline-none focus:ring sm:mt-6"
-                    href="#"
-                    onClick={()=>router.push("/dashboard/upgrade")}
-                  >
-                    Get Started
-                  </a>
+                <a
+                  className="mt-4 block rounded border  bg-primary transition-all duration-300 hover:bg-orange-400 px-12 py-3 text-center text-sm font-medium text-white  focus:outline-none focus:ring sm:mt-6"
+                  href="#"
+                  onClick={() => router.push("/dashboard/upgrade")}
+                >
+                  Get Started
+                </a>
               </div>
 
               <div className="p-6 sm:px-8">
@@ -131,7 +132,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> 10 users </span>
+                    <span className="text-gray-700"> 3 Forms </span>
                   </li>
 
                   <li className="flex items-center gap-1">
@@ -150,7 +151,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> 2GB of storage </span>
+                    <span className="text-gray-700"> 3 Live Preview </span>
                   </li>
 
                   <li className="flex items-center gap-1">
@@ -169,7 +170,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> Email support </span>
+                    <span className="text-gray-700"> 3 Data export </span>
                   </li>
 
                   <li className="flex items-center gap-1">
@@ -239,14 +240,15 @@ const Hero = () => {
                   <span className="sr-only">Plan</span>
                 </h2>
 
-                <p className="mt-2 text-gray-700">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <p className="mt-2 text-gray-700 text-sm  h-[100px]">
+                  This plan includes all the features of the Starter plan,plus
+                  customization options, priority support.
                 </p>
 
                 <p className="mt-2 sm:mt-4">
                   <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
                     {" "}
-                    30${" "}
+                    18${" "}
                   </strong>
 
                   <span className="text-sm font-medium text-gray-700">
@@ -285,7 +287,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> 20 users </span>
+                    <span className="text-gray-700"> 10 Forms </span>
                   </li>
 
                   <li className="flex items-center gap-1">
@@ -304,7 +306,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> 5GB of storage </span>
+                    <span className="text-gray-700"> 10 Live Preview </span>
                   </li>
 
                   <li className="flex items-center gap-1">
@@ -323,7 +325,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> Email support </span>
+                    <span className="text-gray-700"> 10 Data Export </span>
                   </li>
 
                   <li className="flex items-center gap-1">
@@ -393,14 +395,16 @@ const Hero = () => {
                   <span className="sr-only">Plan</span>
                 </h2>
 
-                <p className="mt-2 text-gray-700">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <p className="mt-2 text-sm text-gray-700 h-[100px]">
+                  This Plan includes all the features of the Professional plan,
+                  plus enterprise-grade security, dedicated management,
+                  and priority solutions.
                 </p>
 
                 <p className="mt-2 sm:mt-4">
                   <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
                     {" "}
-                    100${" "}
+                    60${" "}
                   </strong>
 
                   <span className="text-sm font-medium text-gray-700">
@@ -439,7 +443,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> 50 users </span>
+                    <span className="text-gray-700"> 40 Forms </span>
                   </li>
 
                   <li className="flex items-center gap-1">
@@ -458,7 +462,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> 20GB of storage </span>
+                    <span className="text-gray-700"> 40 Live preview </span>
                   </li>
 
                   <li className="flex items-center gap-1">
@@ -477,7 +481,7 @@ const Hero = () => {
                       />
                     </svg>
 
-                    <span className="text-gray-700"> Email support </span>
+                    <span className="text-gray-700"> 40 Data Export </span>
                   </li>
 
                   <li className="flex items-center gap-1">
